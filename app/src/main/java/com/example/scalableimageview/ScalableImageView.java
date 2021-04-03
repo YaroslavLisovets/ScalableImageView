@@ -16,6 +16,7 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.OverScroller;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 
@@ -49,7 +50,7 @@ public class ScalableImageView extends View {
 	public ScalableImageView(Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
 		TypedArray array =  context.getTheme().obtainStyledAttributes(attrs, R.styleable.ScalableImageView, 0,0);
-		setImageResource(context, array.getResourceId(R.styleable.ScalableImageView_src, R.drawable.page));
+		setImageResource(array.getResourceId(R.styleable.ScalableImageView_src, R.drawable.page));
 		mMaxScale = array.getFloat(R.styleable.ScalableImageView_max_scale, mMaxScale);
 
 		mScaleDetector = new ScaleGestureDetector(context, mScaleGestureListener);
@@ -59,8 +60,9 @@ public class ScalableImageView extends View {
 		//mPointPaint.setColor(Color.BLUE);
 	}
 
-	public void setImageResource(Context context, int id){
-		mBitmap = BitmapFactory.decodeResource(context.getResources(), id);
+	public void setImageResource(int id){
+		mBitmap = BitmapFactory.decodeResource(getContext().getResources(), id);
+
 	}
 
 	public void setImageBitmap(Bitmap bitmap){
